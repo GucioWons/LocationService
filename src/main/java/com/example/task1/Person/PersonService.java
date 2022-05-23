@@ -24,6 +24,7 @@ public class PersonService {
             Person person = new Person("Position", names[rand.nextInt(20)]);
             int tmp = rand.nextInt(3);
             Location location = new Location(countries[tmp].getName(), new Position(), countries[tmp].isInEurope(), countries[tmp].getCode(), rand.nextBoolean());
+            person.setFullName(location);
             JsonNode node = Json.toJson(person);
             JsonNode node2 = Json.toJson(location);
             JsonNode nodefinal = Json.merge(node, node2);

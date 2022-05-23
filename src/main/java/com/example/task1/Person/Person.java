@@ -1,11 +1,13 @@
 package com.example.task1.Person;
 
+import com.example.task1.Location.Location;
 import com.example.task1.Location.Position;
 public class Person {
     private String _type;
     private int id;
     private String key;
     private String name;
+    private String fullName;
     private String iata_airport_code;
     public static int number;
 
@@ -37,5 +39,13 @@ public class Person {
 
     public String getName() {
         return name;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(Location location) {
+        this.fullName = this.name + ", " + location.getCountry();
     }
 }
