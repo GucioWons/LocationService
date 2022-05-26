@@ -1,11 +1,15 @@
 package com.example.task1.Json;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import java.util.Iterator;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 public class Json {
     private static ObjectMapper objectMapper = getDefaultObjectMapper();
@@ -15,8 +19,21 @@ public class Json {
         return defaultObjectMapper;
     }
 
-    public static JsonNode parse(String src) throws JsonProcessingException {
-        return objectMapper.readTree(src);
+    public static JsonNode parse(String src){
+        try {
+            return objectMapper.readTree(src);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static JsonNode parseMap(Map<String, JsonNode> map){
+        String json = null;
+        try {
+            json = objectMapper.writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        return parse(json);
     }
 
     public static JsonNode toJson(Object a){

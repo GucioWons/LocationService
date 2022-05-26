@@ -1,5 +1,7 @@
 package com.example.task1.Location;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+
 public class Location {
     private String type;
     private String country;

@@ -18,8 +18,9 @@ public class PersonService {
             new Country("United States of America", "US", false)};
     static Random rand = new Random();
 
-    public static JsonNode[] JsonObject(int x){
+    public static JsonNode JsonObject(int x){
         JsonNode[] jsons = new JsonNode[x];
+        JsonNode giterson = null;
         for(int i = 0; i<x; i++) {
             Person person = new Person("Position", names[rand.nextInt(20)]);
             int tmp = rand.nextInt(3);
@@ -29,7 +30,8 @@ public class PersonService {
             JsonNode node2 = Json.toJson(location);
             JsonNode nodefinal = Json.merge(node, node2);
             jsons[i] = nodefinal;
+            giterson = Json.toJson(jsons);
         }
-        return jsons;
+        return giterson;
     }
 }
