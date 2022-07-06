@@ -1,13 +1,14 @@
 package com.example.task1.Person;
 
-import com.example.task1.Json.Json;
 import com.example.task1.Location.Country;
-import com.example.task1.Location.Location;
 import com.example.task1.Location.Position;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
+
+import static com.example.task1.Json.Json.toJson;
+
 @Service
 public class PersonService {
     static String[] names = new String[] {"Mróz", "Pawlak", "Marciniak","Przybylski","Szewczyk","Tomaszewski","Brzeziński",
@@ -18,20 +19,15 @@ public class PersonService {
             new Country("United States of America", "US", false)};
     static Random rand = new Random();
 
-    public static JsonNode JsonObject(int x){
-        JsonNode[] jsons = new JsonNode[x];
-        JsonNode giterson = null;
-        for(int i = 0; i<x; i++) {
-            Person person = new Person("Position", names[rand.nextInt(20)]);
-            int tmp = rand.nextInt(3);
-            Location location = new Location(countries[tmp].getName(), new Position(), countries[tmp].isInEurope(), countries[tmp].getCode(), rand.nextBoolean());
-            person.setFullName(location);
-            JsonNode node = Json.toJson(person);
-            JsonNode node2 = Json.toJson(location);
-            JsonNode nodefinal = Json.merge(node, node2);
-            jsons[i] = nodefinal;
-            giterson = Json.toJson(jsons);
+    public static JsonNode PersonToJson(int quantity){
+        JsonNode[] jsons = new JsonNode[quantity];
+        for(int i = 0; i<quantity; i++) {
+            int randomCountryNumber = rand.nextInt(3);
+            Person person = new Person("Position", names[rand.nextInt(20)], countries[randomCountryNumber].getName(),
+                    new Position(), countries[randomCountryNumber].isInEurope(), countries[randomCountryNumber].getCode(), rand.nextBoolean());
+            JsonNode personNode = toJson(person);
+            jsons[i] = personNode;
         }
-        return giterson;
+        return toJson(jsons);
     }
 }
