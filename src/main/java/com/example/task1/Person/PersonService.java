@@ -19,7 +19,7 @@ public class PersonService {
             new Country("United States of America", "US", false)};
     static Random rand = new Random();
 
-    public static JsonNode PersonToJson(int quantity){
+    public static JsonNode personToJson(int quantity){
         JsonNode[] jsons = new JsonNode[quantity];
         for(int i = 0; i<quantity; i++) {
             int randomCountryNumber = rand.nextInt(3);
