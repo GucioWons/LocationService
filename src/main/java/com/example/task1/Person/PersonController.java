@@ -1,15 +1,20 @@
 package com.example.task1.Person;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import static com.example.task1.Person.PersonService.PersonToJson;
 
 @RestController
 @RequestMapping("/generate")
 public class PersonController {
 
+    private PersonService personService;
+
+    public PersonController(PersonService personService) {
+        this.personService = personService;
+    }
+
     @GetMapping("/json/{quantity}")
-    public static JsonNode PersonJsonEndpoint(@PathVariable int quantity) {return PersonToJson(quantity);
+    public JsonNode personJsonEndpoint(@PathVariable int quantity) {return personService.personToJson(quantity);
     }
 }
