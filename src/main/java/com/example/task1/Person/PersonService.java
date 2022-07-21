@@ -1,5 +1,6 @@
 package com.example.task1.Person;
 
+import com.example.task1.Json.Json;
 import com.example.task1.Location.Country;
 import com.example.task1.Location.Position;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -7,10 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Random;
 
-import static com.example.task1.Json.Json.toJson;
-
 @Service
 public class PersonService {
+
     static String[] names = new String[] {"Mróz", "Pawlak", "Marciniak","Przybylski","Szewczyk","Tomaszewski","Brzeziński",
             "Krawczyk","Kowalczyk","Mazur","Stępień","Baran","Krajewska","Kołodziej","Sawicki","Błaszczyk","Marciniak",
             "Wasilewska","Bąk","Górski",};
@@ -19,15 +19,16 @@ public class PersonService {
             new Country("United States of America", "US", false)};
     static Random rand = new Random();
 
-    public static JsonNode personToJson(int quantity){
+    public JsonNode personToJson(int quantity){
+        Json json = new Json();
         JsonNode[] jsons = new JsonNode[quantity];
         for(int i = 0; i<quantity; i++) {
             int randomCountryNumber = rand.nextInt(3);
             Person person = new Person("Position", names[rand.nextInt(20)], countries[randomCountryNumber].getName(),
                     new Position(), countries[randomCountryNumber].isInEurope(), countries[randomCountryNumber].getCode(), rand.nextBoolean());
-            JsonNode personNode = toJson(person);
+            JsonNode personNode = json.toJson(person);
             jsons[i] = personNode;
         }
-        return toJson(jsons);
+        return json.toJson(jsons);
     }
 }
